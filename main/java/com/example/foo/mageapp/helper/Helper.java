@@ -7,7 +7,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by foo on 3/18/17.
@@ -69,5 +72,13 @@ public class Helper {
             s += logs.get(i);
         }
         return s;
+    }
+
+    public static String getGMT(Date date) {
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String gmt = sdf.format(date);
+        return gmt;
     }
 }

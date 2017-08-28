@@ -31,12 +31,14 @@
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_label"
-        android:layout_below="@id/item_icon"/>
+        android:layout_below="@id/item_icon"
+        android:gravity="center"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_price"
-        android:layout_below="@id/item_label"/>
+        android:layout_below="@id/item_label"
+        android:gravity="center"/>
 
 </RelativeLayout>

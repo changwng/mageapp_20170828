@@ -56,6 +56,9 @@ public class MainFragment extends Fragment {
         });
         mImgDownloader.start();
         mImgDownloader.getLooper();
+
+        Intent service = PurchaseService.newIntent(getContext());
+        getContext().startService(service);
     }
 
     @Override

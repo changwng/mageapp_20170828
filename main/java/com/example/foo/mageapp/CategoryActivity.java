@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.foo.mageapp.catalog.Category;
-import com.example.foo.mageapp.helper.Preference;
+import com.example.foo.mageapp.helper.SharedPref;
 import com.example.foo.mageapp.xmlconnect.CategoryConntect;
 
 import java.util.List;
@@ -115,10 +115,10 @@ public class CategoryActivity extends AppCompatActivity {
                 // swap the category fragment based on category id
                 List<Category> cats = mCategory.getChildren();
                 if (cats.isEmpty()) {
-                    Category savedCategory = Preference.getCategory(CategoryActivity.this);
+                    Category savedCategory = SharedPref.getCategory(CategoryActivity.this);
                     cats = savedCategory.getChildren();
                 } else {
-                    Preference.saveCategory(CategoryActivity.this, mCategory);
+                    SharedPref.putCategory(CategoryActivity.this, mCategory);
                 }
                 Category cat = cats.get(position);
                 new CategoryTask().execute(cat.getId());
