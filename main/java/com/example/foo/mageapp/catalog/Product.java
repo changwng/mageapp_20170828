@@ -3,6 +3,11 @@ package com.example.foo.mageapp.catalog;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.foo.mageapp.catalog.product.Option;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by foo on 5/29/17.
  */
@@ -15,6 +20,9 @@ public class Product implements Parcelable {
     protected String mIcon;
     protected String mPrice;
     protected String mSpecialPrice;
+    protected String mDescription;
+    protected String mInSotck;
+    protected List<Option> mOptions = new ArrayList<>();
 
     public static final Parcelable.Creator<Product> CREATOR
               = new Parcelable.Creator<Product>() {
@@ -34,6 +42,9 @@ public class Product implements Parcelable {
         mIcon = in.readString();
         mPrice = in.readString();
         mSpecialPrice = in.readString();
+        mDescription = in.readString();
+        mInSotck = in.readString();
+        in.readList(mOptions, Option.class.getClassLoader());
     }
 
     public Product() {
@@ -87,6 +98,30 @@ public class Product implements Parcelable {
         mSpecialPrice = specialPrice;
     }
 
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public String getInSotck() {
+        return mInSotck;
+    }
+
+    public void setInSotck(String inSotck) {
+        mInSotck = inSotck;
+    }
+
+    public List<Option> getOptions() {
+        return mOptions;
+    }
+
+    public void setOptions(List<Option> options) {
+        mOptions = options;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,5 +135,8 @@ public class Product implements Parcelable {
         dest.writeString(mIcon);
         dest.writeString(mPrice);
         dest.writeString(mSpecialPrice);
+        dest.writeString(mDescription);
+        dest.writeString(mInSotck);
+        dest.writeList(mOptions);
     }
 }

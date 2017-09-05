@@ -35,9 +35,9 @@ public class Db {
     public long addLog(String msg) {
         LogDbHelper logDb = new LogDbHelper(mContext);
         SQLiteDatabase db = logDb.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("data", msg);
-        long newRowId = db.insert(LogEntry.TABLE_NAME, null, values);
+        ContentValues vals = new ContentValues();
+//        values.put("data", msg);
+        long newRowId = db.insert(LogEntry.TABLE_NAME, null, vals);
         return newRowId;
     }
 

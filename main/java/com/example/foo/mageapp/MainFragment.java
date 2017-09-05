@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends DefaultFragment {
 
     protected static final String TAG = "MainFragment";
     protected RecyclerView mRecyclerView;

@@ -1,5 +1,6 @@
 package com.example.foo.mageapp.helper;
 
+import android.annotation.TargetApi;
 import android.util.Log;
 
 import java.net.CookieHandler;
@@ -18,19 +19,22 @@ public class Cookie {
 
     protected static final String TAG = "COOKIE";
 
-    protected static CookieManager sCookieMngr = new CookieManager();
+    protected static CookieManager sCookieMgr = new CookieManager();
     protected String mDomain;
     protected String mHost;
     protected String mPath = "/";
     protected int mVersion = 0;
+    protected long mMaxAge;
+    protected boolean mSecure;
+    protected boolean mHttpOnly;
 
     public Cookie(String domain) {
         mDomain = domain;
     }
 
     public CookieStore getStore() {
-        CookieHandler.setDefault(sCookieMngr);
-        CookieStore store = sCookieMngr.getCookieStore();
+        CookieHandler.setDefault(sCookieMgr);
+        CookieStore store = sCookieMgr.getCookieStore();
         return store;
     }
 
@@ -39,6 +43,12 @@ public class Cookie {
         cookie.setDomain(mDomain);
         cookie.setPath(mPath);
         cookie.setVersion(mVersion);
+        if (mMaxAge > 0) {
+            cookie.setMaxAge(mMaxAge);
+        }
+        cookie.setSecure(mSecure);
+//        cookie.setHttpOnly(mHttpOnly);
+
 //        URI uri = getURI();
         getStore().add(null, cookie);
     }
@@ -72,6 +82,9 @@ public class Cookie {
             mDomain = cookie.getDomain();
             mPath = cookie.getPath();
             mVersion = cookie.getVersion();
+            mMaxAge = cookie.getMaxAge();
+            mSecure = cookie.getSecure();
+            mHttpOnly = cookie.isHttpOnly();
             getStore().add(null, cookie);
         }
     }

@@ -3,6 +3,7 @@ package com.example.foo.mageapp.xmlconnect;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.example.foo.mageapp.catalog.Category;
@@ -21,13 +22,11 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by foo on 3/11/17.
@@ -37,22 +36,33 @@ public class DefaultConnect {
     protected static final String TAG = "DefaultConnect";
     protected static final String DOMAIN = "mage.testing.acacloud.com";
     protected static final String HOST = "http://mage.testing.acacloud.com";
-//    protected static final String DOMAIN = "magento.dev.com";
+    //    protected static final String DOMAIN = "magento.dev.com";
 //    protected static final String HOST = "http://magento.dev.com";
     protected static final String APP_CODE_NAME = "app_code";
     protected static final String APP_CODE_VALUE = "defand1";
     protected static final String APP_SCREEN_SIZE_NAME = "screen_size";
-    protected static final String APP_SCREEN_SIZE_VALUE = "320x480";
+//    protected static final String APP_SCREEN_SIZE_VALUE = "2400x1600"; // "320x480";
 
+    protected String mAppScreenSizeValue;
     protected Context mContext;
     protected String mPath;
     protected Uri mUri;
     protected Map<String, String> mPostData = new HashMap<>();
+    protected Cookie mCookie;
+    protected String mHeaderCookie;
 
     public DefaultConnect(Context context) {
         mContext = context;
         mUri = Uri.parse(HOST);
         mPath = "xmlconnect/index/index";
+
+        // set screen size
+        DisplayMetrics outMetrics = Helper.getScreenSize(mContext);
+        int width = outMetrics.widthPixels;
+        int height = outMetrics.heightPixels;
+        String size = String.format("%dx%d", width, height);
+        Log.d(TAG, "device size: " + size);
+        mAppScreenSizeValue = size;
     }
 
     public String getContentByUrl(String url) {
@@ -62,12 +72,12 @@ public class DefaultConnect {
         }
         String resp = new String(bytes);
         Log.d(TAG, "response: " + resp);
-        long rowId = Helper.getInstance(mContext).dbLog(resp);
+        /*long rowId = Helper.getInstance(mContext).dbLog(resp);
         if (rowId > 0) {
             Log.d(TAG, "row: " + rowId);
             String s = Helper.getInstance(mContext).getLogs();
             Log.d(TAG, "db result: " + s);
-        }
+        }*/
         return resp;
     }
 
@@ -82,6 +92,7 @@ public class DefaultConnect {
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 return null;
             }
+            readHeader(conn);
             in = new BufferedInputStream(conn.getInputStream());
             byte[] b = new byte[1024];
             int len;
@@ -119,21 +130,38 @@ public class DefaultConnect {
         return null;
     }
 
+//    protected void prepareRequest(HttpURLConnection conn) throws IOException {
+//        Cookie cookie = new Cookie(DOMAIN);
+//
+//        /*String headerCookie = getCookieFromHeader(conn);
+//        if (headerCookie != null) {
+//            cookie.addHeaderCookie(headerCookie);
+//        }*/
+//
+//        cookie.add(APP_CODE_NAME, APP_CODE_VALUE);
+//        cookie.add(APP_SCREEN_SIZE_NAME, mAppScreenSizeValue);
+//
+//        List<HttpCookie> cookies = cookie.getCookies();
+//        String strCookies = TextUtils.join(";", cookies);
+//
+//        conn.setRequestProperty("Cookie", strCookies);
+//        prepareRequestParams(conn);
+//    }
+
     protected void prepareRequest(HttpURLConnection conn) throws IOException {
-        Cookie cookie = new Cookie(DOMAIN);
+        mCookie = new Cookie(DOMAIN);
+        mCookie.add(APP_CODE_NAME, APP_CODE_VALUE);
+        mCookie.add(APP_SCREEN_SIZE_NAME, mAppScreenSizeValue);
 
-        /*String headerCookie = getCookieFromHeader(conn);
-        if (headerCookie != null) {
-            cookie.addHeaderCookie(headerCookie);
-        }*/
+        // check saved header cookie from SharedPreferences and set it if there is one..
 
-        cookie.add(APP_CODE_NAME, APP_CODE_VALUE);
-        cookie.add(APP_SCREEN_SIZE_NAME, APP_SCREEN_SIZE_VALUE);
 
-        List<HttpCookie> cookies = cookie.getCookies();
+
+
+        List<HttpCookie> cookies = mCookie.getCookies();
         String strCookies = TextUtils.join(";", cookies);
-
         conn.setRequestProperty("Cookie", strCookies);
+
         prepareRequestParams(conn);
     }
 
@@ -171,6 +199,18 @@ public class DefaultConnect {
         OutputStream out = conn.getOutputStream();
         out.write(bytes);
         out.close();
+    }
+
+    protected void readHeader(HttpURLConnection conn) {
+        mHeaderCookie = getCookieFromHeader(conn);
+        if (mHeaderCookie != null) {
+            mCookie.addHeaderCookie(mHeaderCookie);
+
+            // save into SharedPreferences..
+
+
+
+        }
     }
 
     public List<Category> fetchCategoryItems() {

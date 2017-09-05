@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.foo.mageapp.ProductFragment"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_product_name"
+            android:hint="Product Name"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_product_icon"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_product_price"
+            android:hint="Price"
+            android:padding="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_product_descr"
+            android:hint="Description."
+            android:padding="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_options_container"
+            android:orientation="horizontal"
+            android:padding="8dp">
+            <!-- product options placeholder -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_buy_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/bt_buy_now"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

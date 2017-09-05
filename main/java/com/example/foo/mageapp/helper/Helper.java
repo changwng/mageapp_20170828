@@ -1,7 +1,10 @@
 package com.example.foo.mageapp.helper;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -80,5 +83,12 @@ public class Helper {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         String gmt = sdf.format(date);
         return gmt;
+    }
+
+    public static DisplayMetrics getScreenSize(Context context) {
+        WindowManager winMgr = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        winMgr.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics;
     }
 }

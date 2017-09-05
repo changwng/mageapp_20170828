@@ -1,6 +1,6 @@
 package com.example.foo.mageapp;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +20,12 @@ import com.example.foo.mageapp.catalog.Category;
 import com.example.foo.mageapp.catalog.Product;
 import com.example.foo.mageapp.helper.ImgDownloader;
 
-import org.w3c.dom.Text;
-
 /**
  * A simple {@link Fragment} subclass.
  *
  * Needs a "Navigation Drawer" feature to render hamburger menu..
  */
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends DefaultFragment {
 
     protected static final String TAG = "CategoryFragment";
     protected static final int GRID_SPAN_CNT = 2;
@@ -97,13 +93,14 @@ public class CategoryFragment extends Fragment {
         return frgmnt;
     }
 
-    private class ItemViewHolder extends RecyclerView.ViewHolder {
+    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected Product mItem;
         protected ImageView mIcon;
         protected TextView mLabel;
         protected TextView mPrice;
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mIcon = (ImageView) itemView.findViewById(R.id.item_icon);
             mLabel = (TextView) itemView.findViewById(R.id.item_label);
             mPrice = (TextView) itemView.findViewById(R.id.item_price);
@@ -116,6 +113,11 @@ public class CategoryFragment extends Fragment {
         public void bindDrawable(Drawable drawable) {
             mIcon.setImageDrawable(drawable);
         }
+        public void onClick(View view) {
+            Intent activity = new Intent(getContext(), ProductActivity.class);
+            activity.putExtra(ProductActivity.INTENT_EXTRA_PRODCT_ID, mItem.getId());
+            startActivity(activity);
+        }
     }
 
     private class RecyclerViewAdapter extends RecyclerView.Adapter<ItemViewHolder> {
@@ -126,7 +128,7 @@ public class CategoryFragment extends Fragment {
         @Override
         public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater infalater = LayoutInflater.from(getContext());
-            View view = infalater.inflate(R.layout.recycler_view_item, parent, false);
+            View view = infalater.inflate(R.layout.category_grid_item, parent, false);
             return new ItemViewHolder(view);
         }
         @Override

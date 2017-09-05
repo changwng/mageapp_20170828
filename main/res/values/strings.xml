@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">OPEN</string>
     <string name="close">CLOSE</string>
+    <string name="bt_buy_now">Buy Now</string>
+    <string name="cart">Cart</string>
 </resources>

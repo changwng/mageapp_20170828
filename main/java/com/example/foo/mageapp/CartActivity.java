@@ -1,29 +1,27 @@
 package com.example.foo.mageapp;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 
-import com.example.foo.mageapp.helper.Helper;
+import com.example.foo.mageapp.checkout.CartData;
 
-import java.util.Calendar;
-import java.util.Date;
+public class CartActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    protected static final String TAG = "MainActivity";
+    protected static final String TAG = "CartActivity";
+//    protected static final String INTENT_EXTRA_CART_DATA = "intent.extra.CART_DATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cart);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment f = fm.findFragmentById(R.id.fragment_container);
         if (f == null) {
-            f = MainFragment.getFragment();
+            f = CartFragment.getFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_container, f)
                     .commit();
