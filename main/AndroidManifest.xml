@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
           package="com.example.foo.mageapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -9,6 +10,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+=======
+    package="com.example.andyk.mageapp20170828">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+>>>>>>> 932c3a3379a0b66369b8fdd8df0a031df16cf79b
 
     <application
         android:allowBackup="true"
@@ -41,13 +49,17 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
+<<<<<<< HEAD
         <activity android:name=".ProductActivity"/>
         <activity android:name=".CartActivity">
         </activity>
+=======
+        <activity android:name=".DefaultActivity"></activity>
+>>>>>>> 932c3a3379a0b66369b8fdd8df0a031df16cf79b
     </application>
 
 </manifest>

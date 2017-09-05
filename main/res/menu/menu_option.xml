@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="@string/cart"
           android:id="@+id/shopping_cart"
           android:icon="@drawable/ic_shopping_cart"
           app:showAsAction="always"/>
+=======
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/menu_item_purchase_service_start"
+        android:icon="@android:drawable/ic_menu_help"
+        android:id="@+id/menu_item_purchase_service_toggle" />
+>>>>>>> 932c3a3379a0b66369b8fdd8df0a031df16cf79b
 </menu>

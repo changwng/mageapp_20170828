@@ -1,10 +1,17 @@
 <resources>
-    <string name="app_name">Mage App</string>
+    <string name="app_name">Mage App 20170828</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">OPEN</string>
     <string name="close">CLOSE</string>
+<<<<<<< HEAD
     <string name="bt_buy_now">Buy Now</string>
     <string name="cart">Cart</string>
+=======
+    <string name="purchase_notif_title">Purchase Notification</string>
+    <string name="purchase_notif_text">There is new order avaiable.</string>
+    <string name="menu_item_purchase_service_start">Start Purchase Service</string>
+    <string name="menu_item_purchase_service_stop">Stop Purchase Service</string>
+>>>>>>> 932c3a3379a0b66369b8fdd8df0a031df16cf79b
 </resources>
